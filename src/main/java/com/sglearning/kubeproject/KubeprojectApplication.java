@@ -8,6 +8,7 @@ public class KubeprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KubeprojectApplication.class, args);
+		System.out.println("Hello, Kubernetes!");
 	}
 
 }
