@@ -6,4 +6,4 @@ on:
 
 jobs:
   build:
-    uses: keshavagarwal159/github-actions-templates/.github/workflows/maven-build-template.yml@master
+    uses: keshavagarwal159/github-actions-template/.github/workflows/maven-build-template.yml@master
