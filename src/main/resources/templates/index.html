@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Support Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; color: #333; }
+
+        header {
+            background: #1a73e8;
+            color: white;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 { font-size: 1.4rem; }
+        header span { font-size: 0.9rem; opacity: 0.85; }
+
+        .main { padding: 24px 32px; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .stat-card .label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-card .value { font-size: 2rem; font-weight: bold; margin: 8px 0 4px; }
+        .stat-card .value.open   { color: #e53935; }
+        .stat-card .value.pending { color: #f57c00; }
+        .stat-card .value.resolved { color: #43a047; }
+        .stat-card .value.total  { color: #1a73e8; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .section-header h2 { font-size: 1.1rem; }
+        .btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn:hover { background: #1558b0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        thead { background: #1a73e8; color: white; }
+        th, td { padding: 12px 16px; text-align: left; font-size: 0.9rem; }
+        tbody tr:nth-child(even) { background: #f9f9f9; }
+        tbody tr:hover { background: #e8f0fe; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: bold;
+        }
+        .badge.open     { background: #fde8e8; color: #e53935; }
+        .badge.pending  { background: #fff3e0; color: #f57c00; }
+        .badge.resolved { background: #e8f5e9; color: #43a047; }
+
+        .priority-high   { color: #e53935; font-weight: bold; }
+        .priority-medium { color: #f57c00; }
+        .priority-low    { color: #43a047; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Support Dashboard</h1>
+    <span>Welcome, Admin</span>
+</header>
+
+<div class="main">
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="label">Open Tickets</div>
+            <div class="value open">12</div>
+            <div style="font-size:0.8rem;color:#999">+3 since yesterday</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Pending</div>
+            <div class="value pending">7</div>
+            <div style="font-size:0.8rem;color:#999">Awaiting response</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Resolved Today</div>
+            <div class="value resolved">5</div>
+            <div style="font-size:0.8rem;color:#999">Avg. 3h resolution</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Total Tickets</div>
+            <div class="value total">84</div>
+            <div style="font-size:0.8rem;color:#999">All time</div>
+        </div>
+    </div>
+
+    <!-- Ticket Table -->
+    <div class="section-header">
+        <h2>Recent Tickets</h2>
+        <button class="btn">+ Raise New Ticket</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Subject</th>
+                <th>Raised By</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#TKT-001</td>
+                <td>Login page not loading</td>
+                <td>Alice Johnson</td>
+                <td class="priority-high">High</td>
+                <td><span class="badge open">Open</span></td>
+                <td>2026-04-08</td>
+            </tr>
+            <tr>
+                <td>#TKT-002</td>
+                <td>Invoice PDF download fails</td>
+                <td>Bob Smith</td>
+                <td class="priority-high">High</td>
+                <td><span class="badge pending">Pending</span></td>
+                <td>2026-04-08</td>
+            </tr>
+            <tr>
+                <td>#TKT-003</td>
+                <td>Update billing address</td>
+                <td>Carol White</td>
+                <td class="priority-medium">Medium</td>
+                <td><span class="badge open">Open</span></td>
+                <td>2026-04-07</td>
+            </tr>
+            <tr>
+                <td>#TKT-004</td>
+                <td>Order status incorrect</td>
+                <td>David Lee</td>
+                <td class="priority-medium">Medium</td>
+                <td><span class="badge resolved">Resolved</span></td>
+                <td>2026-04-07</td>
+            </tr>
+            <tr>
+                <td>#TKT-005</td>
+                <td>Add new user account</td>
+                <td>Eva Martinez</td>
+                <td class="priority-low">Low</td>
+                <td><span class="badge resolved">Resolved</span></td>
+                <td>2026-04-06</td>
+            </tr>
+            <tr>
+                <td>#TKT-006</td>
+                <td>Dashboard not showing data</td>
+                <td>Frank Brown</td>
+                <td class="priority-high">High</td>
+                <td><span class="badge open">Open</span></td>
+                <td>2026-04-06</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
