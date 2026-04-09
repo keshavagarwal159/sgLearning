@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: keshav
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeproject
+  namespace: keshav
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubeproject
+  template:
+    metadata:
+      labels:
+        app: kubeproject
+    spec:
+      containers:
+      - name: kubeproject
+        image: 980637429038.dkr.ecr.ap-south-1.amazonaws.com/team2-demo-app:keshav
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubeproject-service
+  namespace: keshav
+spec:
+  selector:
+    app: kubeproject
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
