@@ -12,7 +12,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/", "/actuator/health/**", "/actuator/info").permitAll()
                 .anyRequest().authenticated()
             )
             .csrf(csrf -> csrf.disable());
